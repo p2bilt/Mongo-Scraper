@@ -1,0 +1,92 @@
+                    <div class="card card-primary">
+                        <!-- Panel Heading for the retrieved articles box -->
+                        <div class="card-header">
+                            <h3 class="card-title"><strong>SAVED ARTICLES</strong></h3>
+                        </div>
+                        <!-- This main panel will hold each of the resulting articles -->
+                        <div class="card-body" id="card-section">
+
+  {{!-- #each to iterate through articles and create article panels --}}
+
+{{#each articles}}
+  {{#if saved}}
+<div class="card mb-3 bg-info border-info" id="article-card-1">
+    <div class="card-header">
+
+        <h3 class="articleHeadline">
+          <span class="badge badge-success">{{@index}}</span>
+          <strong>{{headline}}</strong>
+        </h3>
+    </div>
+
+    <div class="card-body">
+
+      <a href="{{storyUrl}}" class="storyLink" target="_blank">
+        <img class="img-thumbnail rounded float-left article-pic" src="{{imgUrl}}">
+        </a>
+
+        <p class="story-summary">{{summary}}</p>
+        <h5 class="storyByline">{{byLine}}</h5>
+        <button class="deleteArticle storyButton btn btn-danger pull-right" data-id="{{_id}}">Delete Article</button>
+        <button class="addNote storyButton btn btn-warning pull-right" data-id="{{_id}}">Add Note</button>
+
+      </div>
+    </div>
+
+  {{/if}}
+{{/each}}
+
+  {{!-- modal for displaying and creating notes --}}
+<div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add A Note:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="noteTitleEntry" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" id="noteTitleEntry">
+          </div>
+          <div class="form-group">
+            <label for="noteBodyEntry" class="col-form-label">Note:</label>
+            <textarea class="form-control" id="noteBodyEntry"></textarea>
+          </div>
+        </form>
+
+      <hr>
+      <div id="noteArea"></div>
+        
+
+      </div>
+
+      <div class="modal-footer">
+      <!-- <h5 class="instructions">Click the note to read it, or X to delete</h5> -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="submitNote" class="btn btn-primary">Save Note</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  {{!-- error modal --}}
+  <div id="error" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h2>There was an error processing your request.  Please try again later.</h2>
+        </div>
+      </div>
+    </div>
+  </div>
